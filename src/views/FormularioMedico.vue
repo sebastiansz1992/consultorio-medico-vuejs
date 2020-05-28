@@ -170,7 +170,7 @@ export default {
   methods: {
     registrarMedico() {
       axios
-        .post("http://127.0.0.1:8000/api/almacenarcompra", {
+        .post("http://127.0.0.1:8000/registrarMedico", {
           nombreCompleto: this.$data.nombreCompleto,
           numeroIdentificacion: this.$data.numeroIdentificacion,
           correoElectronico: this.$data.correoElectronico,
