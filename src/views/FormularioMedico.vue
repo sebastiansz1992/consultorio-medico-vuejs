@@ -142,6 +142,7 @@
 
 <script>
 import axios from "axios";
+import router from "../router";
 export default {
   name: "RegistroMedico",
   watch: {
@@ -169,7 +170,7 @@ export default {
   methods: {
     registrarMedico() {
       axios
-        .post("http://127.0.0.1:8000/registrarMedico", {
+        .post("http://127.0.0.1:8000/api/almacenarcompra", {
           nombreCompleto: this.$data.nombreCompleto,
           numeroIdentificacion: this.$data.numeroIdentificacion,
           correoElectronico: this.$data.correoElectronico,
@@ -181,7 +182,27 @@ export default {
           disponibilidad: "8 a.m. - 10 a.m.",
           activo: 1
         })
-        .then(response => console.log(response));
+        .then(response => {
+          this.$swal({
+            icon: 'success',
+            title: '¡Excelente!',
+            text: 'Su registro ha sido almacenado exitosamente!'
+          }).then((result) => {
+            if(result.value) {
+              router.push(`Inicio`);
+            }
+          });
+        }).catch(error => {
+          this.$swal({
+            icon: 'error',
+            title: '¡Lo sentimos!',
+            text: 'Tenemos inconvenientes almacenando la información!'
+          }).then((result) => {
+            if(result.value) {
+              router.push(`Inicio`);
+            }
+          });
+        });
     }
   }
 };

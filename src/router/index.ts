@@ -20,7 +20,7 @@ const routes: Array<RouteConfig> = [
     component: () => import("../views/ServiciosMedicos.vue")
   },
   {
-    path: "/MisCitas",
+    path: "/MisCitas/:tipo/:id",
     name: "MisCitas",
     component: () => import("../views/MisCitas.vue")
   },
@@ -53,6 +53,16 @@ const routes: Array<RouteConfig> = [
     path: "/RegistroUsuario",
     name: "RegistroUsuario",
     component: () => import("../views/FormularioUsuario.vue")
+  },
+  {
+    path: "/FormularioInicioSesion/:tipoSesion",
+    name: "FormularioInicioSesion",
+    component: () => import("../views/FormularioInicioSesion.vue")
+  },
+  {
+    path: "/VideoLlamada",
+    name: "VideoLlamada",
+    component: () => import("../views/VideoLlamada.vue")
   }
 ];
 

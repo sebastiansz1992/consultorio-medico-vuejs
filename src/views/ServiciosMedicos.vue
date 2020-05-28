@@ -49,7 +49,7 @@ export default {
   watch: {
     $route: {
       immediate: true,
-      handler(to, from) {
+      handler(to) {
         document.title =
           to.meta.title || "Servicios Medicos | Consultorio Medico";
       }
@@ -70,7 +70,18 @@ export default {
         .get("http://127.0.0.1:8000/especialidades")
         .then(response => {
           this.$data.especialidades = response.data;
+          })
+        .catch(error => {
+          this.$swal({
+            icon: 'error',
+            title: '¡Lo sentimos!',
+            text: 'Tenemos inconvenientes consultando las especialidades!'
+          }).then((result) => {
+            if(result.value) {
+              router.push(`Inicio`);
+            }
           });
+        });
     }
   },
   mounted() {

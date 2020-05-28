@@ -1,7 +1,7 @@
 <template>
   <div class="container medicos-especialidad-margin">
     <div class="row row-cols-1 row-cols-md-3">
-      <div class="col mb-4" v-for="medico in $data.medicos" v-bind:key="medico.id">
+      <div class="col-md-4" v-for="medico in $data.medicos" v-bind:key="medico.id">
         <div class="card h-100">
           <img
             src="../assets/images/servicios-medicos/foto-medico.png"
@@ -25,6 +25,7 @@
 
 <script>
 import axios from "axios";
+import router from "../router";
 export default {
   name: "MedicosEspecialidad",
   watch: {
@@ -51,7 +52,17 @@ export default {
         .get(`http://127.0.0.1:8000/obtenerMedicosPorEspecialidad/${idEspecialidad}`)
         .then(response => {
           this.$data.medicos = response.data;
-          console.log(this.$data.medicos);
+            if(this.$data.medicos.length == 0) {
+              this.$swal({
+                icon: 'warning',
+                title: '¡Lo sentimos!',
+                text: 'No encontramos medicos para la especialidad seleccionada!'
+              }).then((result) => {
+                if(result.value) {
+                  router.push(`/Inicio`);
+                }
+              });
+            }
           });
     }
   }

@@ -83,6 +83,7 @@
 
 <script>
 import axios from "axios";
+import router from "../router";
 export default {
   name: "RegistroUsuario",
   watch: {
@@ -114,7 +115,27 @@ export default {
           numeroContacto: this.$data.numeroContacto,
           activo: 1
         })
-        .then(response => console.log(response));
+        .then(response => {
+          this.$swal({
+            icon: 'success',
+            title: '¡Excelente!',
+            text: 'Su registro ha sido almacenado exitosamente!'
+          }).then((result) => {
+            if(result.value) {
+              router.push(`Inicio`);
+            }
+          });
+        }).catch(error => {
+          this.$swal({
+            icon: 'error',
+            title: '¡Lo sentimos!',
+            text: 'Tenemos inconvenientes almacenando la información!'
+          }).then((result) => {
+            if(result.value) {
+              router.push(`Inicio`);
+            }
+          });
+        });;
     }
   }
 };
